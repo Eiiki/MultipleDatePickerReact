@@ -1,0 +1,31 @@
+{
+  "name": "MultipleDatePickerReact",
+  "version": "1.0.0",
+  "authors": [
+    "mgohin <mgohin@arca-computing.fr>"
+  ],
+  "description": "React component to show a calendar and select multiple dates",
+  "main": [
+    "dist/multipleDatePicker.min.js",
+    "dist/multiple-date-picker.css"
+  ],
+  "keywords": [
+    "react",
+    "calendar",
+    "picker",
+    "date",
+    "multiple"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.14.0",
+    "moment": "~2.10.6"
+  }
+}
