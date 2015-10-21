@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>MultipleDatePickerReact by arca-computing</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>MultipleDatePickerReact</h1>
+        <h2></h2>
+        <a href="https://github.com/arca-computing/MultipleDatePickerReact" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h3>
+<a id="what-is-multipledatepickerreact-" class="anchor" href="#what-is-multipledatepickerreact-" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is MultipleDatePickerReact ?</h3>
+
+<p>MultipleDatePicker is a React component to show a simple calendar allowing user to select multiple dates. It's a fork of <a href="http://arca-computing.github.io/MultipleDatePicker/">http://arca-computing.github.io/MultipleDatePicker/</a></p>
+
+<h3>
+<a id="get-it-bower-style" class="anchor" href="#get-it-bower-style" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get it bower style</h3>
+
+<p><code>bower install multiple-date-picker-react</code></p>
+
+<h3>
+<a id="get-it-git-style" class="anchor" href="#get-it-git-style" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get it git style</h3>
+
+<p><code>git clone https://github.com/arca-computing/MultipleDatePickerReact.git</code></p>
+
+<h3>
+<a id="time-to-use-it" class="anchor" href="#time-to-use-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>Time to use it</h3>
+
+<h4>
+<a id="include-files" class="anchor" href="#include-files" aria-hidden="true"><span class="octicon octicon-link"></span></a>Include files</h4>
+
+<pre><code>&lt;script type="text/javascript" src="multipleDatePicker.min.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" type="text/css" href="multiple-date-picker.css"/&gt;
+</code></pre>
+
+<p>Don't forget to include MomentJS, React and ReactDom js files</p>
+
+<h4>
+<a id="options" class="anchor" href="#options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Options</h4>
+
+<pre><code>&lt;MultipleDatePicker
+    month={} //any type MomentJS can use in constructor (moment date, timestamp, UTC formated date ...)
+    sundayFirstDay={true/false} //boolean, false default
+    highlightDays={myHighlightDays} //details below
+    weekDaysOff=[0, 6] //days never selectable in a week (0 = Sunday, 1 = Monday ... 6 = Saturday)
+    dayClick={dayClickCallback} //details below
+    dayHover={dayHoverCallback} //details below
+    changeMonth={monthChangeCallback} //details below
+    callbackContext={this} //context given to every callback
+/&gt;
+</code></pre>
+
+<h5>
+<a id="month" class="anchor" href="#month" aria-hidden="true"><span class="octicon octicon-link"></span></a>month</h5>
+
+<p>Any type MomentJS can use in constructor, default will be current month</p>
+
+<h5>
+<a id="highlightdays" class="anchor" href="#highlightdays" aria-hidden="true"><span class="octicon octicon-link"></span></a>highlightDays</h5>
+
+<p>Here is the major difference with Angular version, now we use only one parameter to change days state in calendar (except for recurrent week days off with <code>weekDaysOff</code>).</p>
+
+<pre><code>day: MOMENT/TIMESTAMP, //any type MomentJS can use in constructor
+css: STRING, //chained css
+notSelectable: BOOLEAN, //default false, true so day will not be selectable (dayClick callback not called and select state will not change)
+selected: BOOLEAN, //selected or not by default
+title: STRING //html title property
+</code></pre>
+
+<p>A simple example</p>
+
+<pre><code>var myHighlightDays = [
+{
+    day: moment(1438560000000), //03 august 2015 is my birthday
+    css: 'birthday', //a beautiful color for this special day
+    notSelectable: true, //can't change this magic day state
+    selected: true,
+    title: 'My birthday today !!!'
+},
+    {
+    day: moment(1438646400000), //04 august 2015
+    notSelectable: true //everyone is off this day, hangover -_-
+},
+    {
+    day: moment(xxx), //a default selected day
+    selected: true
+},
+    {
+    day: moment(yyy), //another default selected day
+    selected: true
+}
+];
+</code></pre>
+
+<p>With this property you can handle any kind of day : events, days-off, pre-selected days ...</p>
+
+<h5>
+<a id="dayclick" class="anchor" href="#dayclick" aria-hidden="true"><span class="octicon octicon-link"></span></a>dayClick</h5>
+
+<p>Callback called when a day is clicked, params are the day (MomentJS object for easy manipulations) and the select state before clicking.</p>
+
+<p>Returning true will change the day select state.</p>
+
+<pre><code>var dayClickCallback = function(momentDate, selectedBefore){
+    //do whatever you want
+    //return true will change the select state
+    //return nothing or false will not change the select state
+};
+</code></pre>
+
+<h5>
+<a id="dayhover" class="anchor" href="#dayhover" aria-hidden="true"><span class="octicon octicon-link"></span></a>dayHover</h5>
+
+<p>Callback called when mouse enter a day, params are the day (MomentJS object for easy manipulations) and the select state.</p>
+
+<pre><code>var dayHoverCallback = function(momentDate, selectedBefore){
+    //do whatever you want
+};
+</code></pre>
+
+<h5>
+<a id="changemonth" class="anchor" href="#changemonth" aria-hidden="true"><span class="octicon octicon-link"></span></a>changeMonth</h5>
+
+<p>Callback called when trying to change month, params are a day in the month (MomentJS object for easy manipulation) dans the increment.</p>
+
+<p>Returning true will allow changing month.</p>
+
+<pre><code>var monthChangeCallback = function(momentDate, increment){
+    //example, we don't allow navigation in the futur or back to more than 2 months
+    //we can inline condition but for demo purpose we use dummy if
+
+    var newMonth = momentDate.add(increment, 'MONTH');
+    if(newMonth.isBefore(moment().subtract(2, 'MONTH'))){
+        return false;
+    }
+
+    if(newMonth.isAfter(moment())){
+        return false;
+    }
+
+    return true;
+};
+</code></pre>
+
+<h3>
+<a id="whats-next-" class="anchor" href="#whats-next-" aria-hidden="true"><span class="octicon octicon-link"></span></a>What's next ?</h3>
+
+<p>We created this component to have a simple calendar with multi-dates selection. We will keep it simple but any improvement is welcome.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/arca-computing/MultipleDatePickerReact/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/arca-computing/MultipleDatePickerReact/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/arca-computing/MultipleDatePickerReact"></a> is maintained by <a href="https://github.com/arca-computing">arca-computing</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
