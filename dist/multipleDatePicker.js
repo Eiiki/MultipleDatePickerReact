@@ -16,7 +16,9 @@ var MultipleDatePickerDay = React.createClass({displayName: "MultipleDatePickerD
 	},
 	handleClick: function(){
 		if(!this.props.notSelectable && (typeof this.props.dayClick !== 'function' || this.props.dayClick.call(this.props.dayClickContext, this.props.day.clone(), this.state.selected))){
-			this.setState({selected: !this.state.selected});
+			var newState = !this.state.selected;
+			this.setState({selected: newState});
+			this.props.daySelectionChanged(this.props.day, newState);
 		}
 	},
 	handleHover: function(){
@@ -54,6 +56,23 @@ var MultipleDatePicker = React.createClass({displayName: "MultipleDatePicker",
 			highlightDays: highlightDays,
 			weekDaysOff: this.props.weekDaysOff || []
 		});
+	},
+	daySelectionChanged: function(day, selected){
+		var hD = this.state.highlightDays,
+			found = hD.filter(function(d){
+				return d.day.isSame(day, 'day');
+			}),
+			toChanged = {day: day, selected: selected};
+
+		if(found.length){
+			toChanged = found[0];
+			var index = hD.indexOf(toChanged);
+			toChanged.selected = selected;
+			hD[index] = toChanged;
+		}else{
+			hD.push(toChanged);
+		}
+		this.setState({highlightDays: hD});
 	},
 	getDaysOfWeek: function () {
         /*To display days of week names in moment.lang*/
@@ -100,7 +119,7 @@ var MultipleDatePicker = React.createClass({displayName: "MultipleDatePicker",
 
 			hDay = hDay[0] || {day: day};
 			return (React.createElement(MultipleDatePickerDay, {
-				key: i, 
+				key: hDay.day.valueOf(), 
 				day: hDay.day, 
 				css: hDay.css, 
 				notSelectable: hDay.notSelectable || this.state.weekDaysOff.indexOf(day.day()) > -1, 
@@ -108,7 +127,8 @@ var MultipleDatePicker = React.createClass({displayName: "MultipleDatePicker",
 				title: hDay.title, 
 				dayClick: this.props.dayClick, 
 				dayHover: this.props.dayHover, 
-				dayClickContext: this.props.callbackContext}));
+				dayClickContext: this.props.callbackContext, 
+				daySelectionChanged: this.daySelectionChanged}));
         }, this);
     },
     goToPreviousMonth: function(){
