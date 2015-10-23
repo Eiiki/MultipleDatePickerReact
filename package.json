@@ -1,7 +1,27 @@
 {
-  "name": "MultipleDatePickerReact",
-  "version": "1.0.0",
-  "dependencies": {},
+  "name": "multiple-date-picker-react",
+  "version": "1.0.1",
+  "description": "React component to show a calendar and select multiple dates",
+  "author": {
+    "name": "Maelig GOHIN",
+    "email": "mgohin@arca-computing.fr"
+  },
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "calendar",
+    "picker",
+    "date",
+    "multiple"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/arca-computing/MultipleDatePickerReact.git"
+  },
+  "dependencies": {
+    "moment": "^2.10.6",
+    "react": "^0.14.0"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "~3.0.3",
