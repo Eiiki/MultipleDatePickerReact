@@ -1,7 +1,7 @@
 /*
  Creator: Maelig GOHIN For ARCA-Computing - www.arca-computing.fr
  Creation date: October 2015
- Version: 1.0.0
+ Version: 1.0.1
  Description:  MultipleDatePickerReact is a React component to show a simple calendar allowing user to select multiple dates.
  Css style can be changed by editing less or css stylesheet.
  Feel free to edit and share this piece of code, our idea is to keep it simple ;)
@@ -10,7 +10,6 @@
 var MultipleDatePickerDay = React.createClass({displayName: "MultipleDatePickerDay",
 	componentWillMount: function(){
 		this.setState({
-			today: this.props.day.isSame(moment(), 'DAY'),
 			selected: this.props.selected || false
 		});
 	},
@@ -29,7 +28,9 @@ var MultipleDatePickerDay = React.createClass({displayName: "MultipleDatePickerD
 	render: function(){
 		var classes = 'text-center picker-day';
 		classes += this.state.selected ? ' picker-selected' : '';
-		classes += this.state.today ? ' today' : '';
+		classes += this.props.day.isSame(moment(), 'DAY') ? ' today' : '';
+		classes += this.props.day.isBefore(moment(), 'DAY') ? ' past' : '';
+		classes += this.props.day.isAfter(moment(), 'DAY') ? ' future' : '';
 		classes += this.props.notSelectable ? ' picker-off' : '';
 		classes += ' ' + (this.props.css || '');
 		return (React.createElement("div", {className: classes, title: this.props.title, onClick: this.handleClick, onMouseEnter: this.handleHover}, this.props.day.format('D')));

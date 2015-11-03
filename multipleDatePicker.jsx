@@ -10,7 +10,6 @@
 var MultipleDatePickerDay = React.createClass({
 	componentWillMount: function(){
 		this.setState({
-			today: this.props.day.isSame(moment(), 'DAY'),
 			selected: this.props.selected || false
 		});
 	},
@@ -29,7 +28,9 @@ var MultipleDatePickerDay = React.createClass({
 	render: function(){
 		var classes = 'text-center picker-day';
 		classes += this.state.selected ? ' picker-selected' : '';
-		classes += this.state.today ? ' today' : '';
+		classes += this.props.day.isSame(moment(), 'DAY') ? ' today' : '';
+		classes += this.props.day.isBefore(moment(), 'DAY') ? ' past' : '';
+		classes += this.props.day.isAfter(moment(), 'DAY') ? ' future' : '';
 		classes += this.props.notSelectable ? ' picker-off' : '';
 		classes += ' ' + (this.props.css || '');
 		return (<div className={classes} title={this.props.title} onClick={this.handleClick} onMouseEnter={this.handleHover}>{this.props.day.format('D')}</div>);
