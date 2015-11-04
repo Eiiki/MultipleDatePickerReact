@@ -88,6 +88,15 @@ module.exports = function(grunt) {
             }
         },
 
+        version: {
+            options:{
+                prefix: '"?version"?\\s*[:=]\\s*"?'
+            },
+            defaults: {
+                src: ['multipleDatePicker.jsx', 'bower.json']
+            }
+        },
+
         watch: {
             js: {
                 files: ['multipleDatePicker.jsx'],
@@ -100,6 +109,7 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-version');
     grunt.loadNpmTasks('grunt-react');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -110,6 +120,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['clean', 'react', 'jshint', 'concat:js', 'uglify', 'less', 'autoprefixer']);
+    grunt.registerTask('default', ['clean', 'version', 'react', 'jshint', 'concat:js', 'uglify', 'less', 'autoprefixer']);
     grunt.registerTask('dev', ['clean', 'react', 'jshint', 'concat:js', 'uglify', 'less', 'autoprefixer', 'watch']);
 };
