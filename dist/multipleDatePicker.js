@@ -1,7 +1,7 @@
 /*
  @author: Maelig GOHIN For ARCA-Computing - www.arca-computing.fr
  @date: October 2015
- @version: 1.0.2
+ @version: 1.0.3
  @description:  MultipleDatePickerReact is a React component to show a simple calendar allowing user to select multiple dates.
  Css style can be changed by editing less or css stylesheet.
  Feel free to edit and share this piece of code, our idea is to keep it simple ;)
